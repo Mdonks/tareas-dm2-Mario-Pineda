@@ -1,0 +1,7 @@
+{
+  "name": "tareas-dm2-Mario-Pineda",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

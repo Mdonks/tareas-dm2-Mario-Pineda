@@ -1,0 +1,35 @@
+<ion-card>
+  <img src="assets/tarea4.png" alt="Pizza Big New Yorker" />
+
+  <ion-card-header>
+    <ion-card-title class="ion-text-center" color="danger">
+      BIG NEW YORKER BACON & BANANA PEPPERS
+    </ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+    <p>
+      Es una pizza de gran tamaño, inspirada al estilo New York con rebanadas grandes, de pepperoni y trocitos de bacon,
+      con abundantes rebanadas de chile banana peppers de sabor suave con toque ácido, con una mezcla de orégano y queso parmesano
+      sobre los ingredientes y mantequilla de ajo a la orilla.
+    </p>
+
+    <p><strong>DESDE:</strong> LPS. 329.00</p>
+
+    <div class="quantity-selector">
+      <strong>CANTIDAD:</strong>
+      <ion-button fill="clear" (click)="decreaseQuantity()">
+        <ion-icon name="remove-circle-outline"></ion-icon>
+      </ion-button>
+      <span>{{ quantity }}</span>
+      <ion-button fill="clear" (click)="increaseQuantity()">
+        <ion-icon name="add-circle-outline"></ion-icon>
+      </ion-button>
+    </div>
+
+    <ion-button expand="block" color="success" (click)="orderProduct()">
+      ORDENAR
+    </ion-button>
+  </ion-card-content>
+</ion-card>
+
