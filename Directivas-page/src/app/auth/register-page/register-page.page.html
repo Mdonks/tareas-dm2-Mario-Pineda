@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+    
+    <ion-label class="field-label">Nombres</ion-label>
+    <ion-item [ngClass]="{'invalid-field': firstName?.invalid && firstName?.touched}">
+      <ion-input formControlName="firstName"></ion-input>
+    </ion-item>
+    <ion-text color="danger" *ngIf="firstName?.touched && firstName?.errors">
+      <span *ngIf="firstName?.hasError('required')">* El campo nombres es obligatorio.</span>
+    </ion-text>
+
+   
+    <ion-label class="field-label">Apellidos</ion-label>
+    <ion-item [ngClass]="{'invalid-field': lastName?.invalid && lastName?.touched}">
+      <ion-input formControlName="lastName"></ion-input>
+    </ion-item>
+    <ion-text color="danger" *ngIf="lastName?.touched && lastName?.errors">
+      <span *ngIf="lastName?.hasError('required')">* El campo apellidos es obligatorio.</span>
+    </ion-text>
+
+    
+    <ion-label class="field-label">Correo Electrónico</ion-label>
+    <ion-item [ngClass]="{'invalid-field': email?.invalid && email?.touched}">
+      <ion-input type="email" formControlName="email"></ion-input>
+    </ion-item>
+    <ion-text color="danger" *ngIf="email?.touched && email?.errors">
+      <span *ngIf="email?.hasError('required')">* El correo es obligatorio.</span>
+      <span *ngIf="email?.hasError('email')">* Formato de correo inválido.</span>
+    </ion-text>
+
+    
+    <ion-label class="field-label">Contraseña</ion-label>
+    <ion-item [ngClass]="{'invalid-field': password?.invalid && password?.touched}">
+      <ion-input type="password" formControlName="password"></ion-input>
+    </ion-item>
+    <ion-text color="danger" *ngIf="password?.touched && password?.errors">
+      <span *ngIf="password?.hasError('required')">* La contraseña es obligatoria.</span>
+    </ion-text>
+
+    
+    <ion-label class="field-label">Número de Identidad</ion-label>
+    <ion-item [ngClass]="{'invalid-field': dni?.invalid && dni?.touched}">
+      <ion-input type="text" formControlName="dni" inputmode="numeric"></ion-input>
+    </ion-item>
+    <ion-text color="danger" *ngIf="dni?.touched && dni?.errors">
+      <span *ngIf="dni?.hasError('required')">* El DNI es obligatorio.</span>
+      <span *ngIf="dni?.hasError('pattern')">* Debe tener mínimo 13 números.</span>
+    </ion-text>
+
+    
+    <ion-label class="field-label">Número de Teléfono</ion-label>
+    <ion-item [ngClass]="{'invalid-field': phone?.invalid && phone?.touched}">
+      <ion-input type="text" formControlName="phone" inputmode="numeric"></ion-input>
+    </ion-item>
+    <ion-text color="danger" *ngIf="phone?.touched && phone?.errors">
+      <span *ngIf="phone?.hasError('required')">* El teléfono es obligatorio.</span>
+      <span *ngIf="phone?.hasError('pattern')">* Debe tener mínimo 8 números.</span>
+    </ion-text>
+
+    
+    <ion-button
+      expand="block"
+      type="submit"
+      color="secondary"
+      [disabled]="registerForm.invalid"
+    >
+      Registrar
+    </ion-button>
+
+  </form>
+</ion-content>
