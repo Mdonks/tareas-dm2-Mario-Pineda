@@ -25,3 +25,24 @@
 #container a {
   text-decoration: none;
 }
+
+.quantity-selector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 12px 0;
+  font-size: 16px;
+}
+
+
+.mayor {
+  color: green;
+}
+
+.exacto {
+  color: orange;
+}
+
+.menor {
+  color: red;
+}

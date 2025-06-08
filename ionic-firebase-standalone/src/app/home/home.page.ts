@@ -1,38 +1,52 @@
-import { Component } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Auth, createUserWithEmailAndPassword } from '@angular/fire/auth';
-import { Firestore, collection, addDoc } from '@angular/fire/firestore';
+import {
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonButton,
+} from '@ionic/angular/standalone';
+import { FormsModule } from '@angular/forms';
+import { AuthService } from '../auth/services/auth.service';
+import { Router } from '@angular/router';
+import { ToastService } from '../shared/services/toast.service';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [IonicModule, CommonModule],
-  template: `
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>Firebase Standalone</ion-title>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content class="ion-padding">
-      <ion-button (click)="registrarUsuario()">Registrar usuario</ion-button>
-      <ion-button (click)="guardarDato()">Guardar dato en Firestore</ion-button>
-    </ion-content>
-  `
+  imports: [
+    IonButton,
+    CommonModule,
+    FormsModule,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+  ],
+  templateUrl: 'home.page.html',
+  styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  constructor(private auth: Auth, private firestore: Firestore) {}
+  private readonly _authService: AuthService = inject(AuthService);
+  private readonly _router: Router = inject(Router);
+  private readonly _toastService: ToastService = inject(ToastService);
 
-  registrarUsuario() {
-    createUserWithEmailAndPassword(this.auth, 'ejemplo@correo.com', '123456')
-      .then(cred => console.log('Usuario registrado:', cred))
-      .catch(err => console.error(err));
-  }
-
-  guardarDato() {
-    const ref = collection(this.firestore, 'demo');
-    addDoc(ref, { mensaje: 'Hola desde Ionic Standalone' })
-      .then(() => console.log('Dato guardado'))
-      .catch(err => console.error(err));
+  logout(): void {
+    this._authService
+      .signOut()
+      .then(async () => {
+        await this._toastService.createAndPresentToast(
+          'Sesión cerrada correctamente'
+        );
+        this._router.navigate(['./login-page']);
+      })
+      .catch(async () => {
+        console.error('Error al cerrar sesión:');
+        await this._toastService.createAndPresentToast(
+          'Ha ocurrido un error, vuelve a intentarlo',
+          true
+        );
+      });
   }
 }

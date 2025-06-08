@@ -1,0 +1,85 @@
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="login-title">Registro</div>
+  <form [formGroup]="registerForm">
+    <ion-item class="no-border">
+      <ion-label class="field-label" position="stacked" style="margin-bottom: 10px; font-size: 1.0rem"><ion-icon
+          name="person"></ion-icon> Nombres
+        <span class="requerided">*</span>
+      </ion-label>
+      <ion-input class="input-custom" formControlName="Nombre"
+        [ngClass]="{'invalid-field': isNombreRequired}"></ion-input>
+    </ion-item>
+
+    @if (isNombreRequired){
+    <ion-note color="danger">*El Nombre es requerido</ion-note>
+    }
+    <ion-item class="no-border">
+      <ion-label class="field-label" position="stacked" style="margin-bottom: 10px; font-size: 1.0rem"><ion-icon
+          name="person"></ion-icon> Apellidos
+        <span class="requerided">*</span></ion-label>
+      <ion-input class="input-custom" [ngClass]="{'invalid-field': isApellidoRequired}"
+        formControlName="Apellido"></ion-input>
+    </ion-item>
+    @if (isApellidoRequired){
+    <ion-note color="danger">* El campo apellidos es obligatorio.</ion-note>
+    }
+
+    <ion-item class="no-border">
+      <ion-label class="field-label" position="stacked" style="margin-bottom: 10px; font-size: 1.0rem"><ion-icon
+          name="mail"></ion-icon> Correo Electrónico
+        <span class="requerided">*</span></ion-label>
+      <ion-input class="input-custom" [ngClass]="{'invalid-field': isEmailRequired || isEmailValid}" type="email"
+        formControlName="email"></ion-input>
+    </ion-item>
+    @if(isEmailRequired){
+    <ion-note color="danger">* El correo es obligatorio.</ion-note>
+    } @if(isEmailValid){
+    <ion-note color="danger">* Formato de correo inválido.</ion-note>
+    }
+
+    <ion-item class="no-border">
+      <ion-label class="field-label" position="stacked" style="margin-bottom: 10px; font-size: 1.0rem"><ion-icon
+          name="key"></ion-icon> Contraseña
+        <span class="requerided">*</span></ion-label>
+      <ion-input type="password" class="input-custom" [ngClass]="{'invalid-field': isPassWordRequired}"
+        formControlName="password"></ion-input>
+    </ion-item>
+
+    @if(isPassWordRequired){
+    <ion-note color="danger">* La contraseña es obligatoria.</ion-note>
+    }
+
+    <ion-item class="no-border">
+      <ion-label class="field-label" position="stacked" style="margin-bottom: 10px; font-size: 1.0rem"><ion-icon
+          name="id-card"></ion-icon>Número de Identidad<span class="requerided">*</span></ion-label>
+      <ion-input class="input-custom" [ngClass]="{'invalid-field': isDniRequired || isDniValid}" type="number"
+        formControlName="dni" inputmode="numeric"></ion-input>
+    </ion-item>
+
+    @if(isDniRequired){
+    <ion-note color="danger">* El DNI es obligatorio.</ion-note>
+    } @if(isDniValid){
+    <ion-note color="danger">* Debe tener mínimo 13 números.</ion-note>
+    }
+
+    <ion-item class="no-border">
+      <ion-label class="field-label" position="stacked" style="margin-bottom: 10px; font-size: 1.0rem"><ion-icon
+          name="call"></ion-icon> Número de Teléfono
+        <span class="requerided">*</span>
+      </ion-label>
+      <ion-input type="number" class="input-custom" [ngClass]="{'invalid-field': isPhoneRequired || isPhoneValid}"
+        formControlName="phone" inputmode="numeric"></ion-input>
+    </ion-item>
+
+    @if(isPhoneRequired){
+    <ion-note color="danger">* El telefono es obligatorio.</ion-note>
+    } @if(isPhoneValid){
+    <ion-note color="danger">* Debe tener minimo 8 números.</ion-note>
+    }
+
+    <ion-button mode="ios" expand="block" type="submit" color="secondary" style="margin-top: 20px" [disabled]="isFormInvalid"
+      (click)="singUp()">
+      Registrar
+    </ion-button>
+  </form>
+</ion-content>

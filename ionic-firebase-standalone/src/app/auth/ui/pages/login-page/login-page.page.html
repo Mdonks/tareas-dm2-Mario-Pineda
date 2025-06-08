@@ -1,0 +1,58 @@
+<ion-content [fullscreen]="true" class="ion-padding">
+  <form [formGroup]="loginForm">
+    <div class="login-title">Iniciar Sesion</div>
+    <ion-item class="no-border">
+      <ion-label class="field-label" position="stacked" style="margin-bottom: 10px; font-size: 1.0rem;">Correo
+        electrónico</ion-label>
+      <ion-input class="input-custom" [ngClass]="{ 'invalid-field' : isEmailRequired || isEmailValid }" type="text"
+        formControlName="email">
+      </ion-input>
+    </ion-item>
+    @if (isEmailRequired) {
+    <ion-note color="danger">*El correo es requerido</ion-note>
+    } @if (isEmailValid) {
+    <ion-note color="danger">*El correo es inválido</ion-note>
+    }
+
+    <ion-item class="no-border">
+      <ion-label position="stacked" style="margin-bottom: 10px;font-size: 1.0rem;"
+        class="field-label">Contraseña</ion-label>
+      <ion-input class="input-custom" type="password" formControlName="password"
+        [ngClass]="{ 'invalid-field' : isPasswordRequired }">
+        <ion-input-password-toggle slot="end" color="dark"></ion-input-password-toggle>
+      </ion-input>
+    </ion-item>
+
+    @if (isPasswordRequired) {
+    <ion-note color="danger">*La contraseña es requerida</ion-note>
+    }
+    <ion-text (click)="goForgotPassword()"
+      style="color: #003366; font-size: 0.8rem; cursor: pointer; display: block; margin-top: 10px; text-align: end; text-decoration: underline;">
+      ¿Olvidaste tu contraseña?
+    </ion-text>
+
+    <ion-button mode="ios" expand="block" color="secondary" style="margin-top: 20px" [disabled]="isFormInvalid"
+      (click)="login()">Iniciar sesión</ion-button>
+    <ion-text style="width: 100%; display: flex; justify-content: center;color: #003366;align-items: center; gap: 5px;">
+      <div class="linea"></div>o
+      <div class="linea"></div>
+    </ion-text>
+    <ion-button mode="ios" fill="outline" expand="block" color="secondary" style="margin-top: 5px"
+      (click)="loginAsGuest()">Iniciar como invitado</ion-button>
+
+    <ion-item class="no-border">
+      <div class="text-row">
+        <ion-text style="font-size: 0.8rem;color: #003366;">
+          ¿No tienes una cuenta?
+        </ion-text>
+        <ion-text color="primary"
+          style="font-size: 0.8rem; cursor: pointer; font-weight: bold;text-decoration: underline;"
+          (click)="goToRegister()">
+          Regístrate ahora
+        </ion-text>
+      </div>
+    </ion-item>
+
+  </form>
+
+</ion-content>
