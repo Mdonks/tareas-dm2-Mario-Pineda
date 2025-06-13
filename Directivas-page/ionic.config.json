@@ -1,7 +1,0 @@
-{
-  "name": "Directivas-page",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "angular-standalone"
-}
