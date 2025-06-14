@@ -1,10 +1,12 @@
 import { Routes } from '@angular/router';
-import { HomePage } from './home/home.page';
+import { AuthGuard } from './shared/guards/auth.guard';
+import { inject } from '@angular/core';
 
 export const routes: Routes = [
   {
-    path: 'home',
-    loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
+    path: '',
+    redirectTo: 'tabs/home',
+    pathMatch: 'full',
   },
   
   {
@@ -19,10 +21,23 @@ export const routes: Routes = [
   {
     path: 'register-page',
     loadComponent: () => import('./auth/ui/pages/register-page/register-page.page').then( m => m.RegisterPagePage)
+
   },
   {
     path: 'forget-password',
     loadComponent: () => import('./auth/ui/pages/forget-password/forget-password.page').then( m => m.ForgetPasswordPage)
-  }
+  },
+  {
+    path: 'tabs',
+    loadComponent: () => import('./shared/pages/tabs/tabs.page').then( m => m.TabsPage),
+    canActivate: [() => inject(AuthGuard).canActivate()],
+  },
+  {
+    path: '',
+    loadChildren: () =>
+      import('./shared/pages/tabs/app.routes').then((m) => m.routes),
+    canActivate: [() => inject(AuthGuard).canActivate()],
+  },
+
 
 ];
