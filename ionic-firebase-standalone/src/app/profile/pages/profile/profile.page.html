@@ -1,0 +1,82 @@
+<ion-header [translucent]="true">
+  <ion-toolbar class="verdecito">
+    <ion-title>Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large" style="padding: 0px;">Perfil</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <form [formGroup]="profileForm" (ngSubmit)="save()">
+    <ion-item class="no-border">
+      <div class="center-container">
+        <ion-img [src]="imageUrl" class="img_style_perfil" (click)="selecImage()"></ion-img>
+      </div>
+    </ion-item>
+    @if(loaded){
+    <ion-item class="no-border">
+      <ion-label position="stacked" class="label_style">Nombre</ion-label>
+      <div class="skeleton-styles">
+        <ion-skeleton-text [animated]="true" style="width: 60%"></ion-skeleton-text>
+      </div>
+    </ion-item>
+    <ion-item class="no-border">
+      <ion-label position="stacked" class="label_style">Correo electrónico</ion-label>
+      <div class="skeleton-styles">
+        <ion-skeleton-text [animated]="true" style="width: 70%"></ion-skeleton-text>
+      </div>
+    </ion-item>
+    <ion-item class="no-border" style="margin-bottom: 20px;">
+      <ion-label position="stacked" class="label_style">Teléfono</ion-label>
+      <div class="skeleton-styles">
+        <ion-skeleton-text [animated]="true" style="width: 60%"></ion-skeleton-text>
+      </div>
+    </ion-item>
+    } @else{
+    <ion-item class="no-border">
+      <ion-label position="stacked" class="label_style">Nombre</ion-label>
+      <ion-input type="text" name="name" formControlName="name" ngDefaultControl
+        [ngClass]="{ 'form-errorInput': isNameRequired }"></ion-input>
+      @if (isNameRequired) {
+      <ion-note color="danger" class="form-errorMessage">
+        El campo es requerido
+      </ion-note>
+      }
+    </ion-item>
+    <ion-item class="no-border">
+      <ion-label position="stacked" class="label_style">Correo electrónico</ion-label>
+      <ion-input type="text" name="email" formControlName="email" ngDefaultControl
+        [ngClass]="{ 'form-errorInput': isEmailRequired || isEmailInvalid }"></ion-input>
+      @if (isEmailRequired) {
+      <ion-note color="danger" class="form-errorMessage">
+        El campo es requerido
+      </ion-note>
+      } @if (isEmailInvalid) {
+      <ion-note color="danger" class="form-errorMessage">
+        El correo electrónico no es válido
+      </ion-note>
+      }
+    </ion-item>
+    <ion-item class="no-border" style="margin-bottom: 20px;">
+      <ion-label position="stacked" class="label_style">Teléfono</ion-label>
+      <ion-input type="number" name="phone" formControlName="phone" ngDefaultControl
+        [ngClass]="{ 'form-errorInput': isPhoneValid }"></ion-input>
+      @if (isPhoneValid) {
+      <ion-note color="danger" class="form-errorMessage">
+        El teléfono es inválido.
+      </ion-note>
+      }
+    </ion-item>
+    }
+
+    <ion-button color= "success" expand="block" mode="ios" type="submit"
+      [ariaDisabled]="isFormInvalid || spinner">
+      <ion-spinner *ngIf="spinner"></ion-spinner>Guardar
+    </ion-button>
+  </form>
+  <ion-button color= "success" fill="outline" mode="ios" expand="block" (click)="logout()">Cerrar sesion</ion-button>
+
+</ion-content>

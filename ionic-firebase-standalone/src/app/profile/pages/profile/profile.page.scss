@@ -1,0 +1,46 @@
+#container {
+    text-align: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  .no-border {
+    --inner-border-width: 0;
+    --border-color: transparent;
+    --padding-start: 0;
+    --padding-end: 0;
+    --inner-padding-end: 0;
+  }
+  
+  .img_style_perfil {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    width: 30%;
+  }
+  
+  .label_style {
+    font-weight: 700;
+    font-size: 1.3rem;
+  }
+  
+  .verdecito {
+    --background: #2ac458;
+    --color: white;
+    /* texto blanco */
+  }
+  
+  .center-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .skeleton-styles {
+    margin-top: 10px;
+    margin-bottom: 16px;
+    width: 100%;
+  }

@@ -114,7 +114,7 @@ export class LoginPagePage {
           false
         );
         await this.closeLoading();
-        this._router.navigate(['/home']);
+        this._router.navigate(['tabs/home']);
       })
       .catch(async (error: string) => {
         await this.closeLoading();
@@ -132,7 +132,7 @@ export class LoginPagePage {
         false
       );
       await this.closeLoading();
-      this._router.navigate(['/home']); 
+      this._router.navigate(['tabs/home']); 
     } catch (error) {
       await this.closeLoading();
       console.error('Error login como invitado', error);

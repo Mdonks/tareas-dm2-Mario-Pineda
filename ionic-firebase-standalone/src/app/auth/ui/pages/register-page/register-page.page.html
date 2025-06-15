@@ -6,10 +6,9 @@
           name="person"></ion-icon> Nombres
         <span class="requerided">*</span>
       </ion-label>
-      <ion-input class="input-custom" formControlName="Nombre"
+      <ion-input class="input-custom" formControlName="name"
         [ngClass]="{'invalid-field': isNombreRequired}"></ion-input>
     </ion-item>
-
     @if (isNombreRequired){
     <ion-note color="danger">*El Nombre es requerido</ion-note>
     }
@@ -18,7 +17,7 @@
           name="person"></ion-icon> Apellidos
         <span class="requerided">*</span></ion-label>
       <ion-input class="input-custom" [ngClass]="{'invalid-field': isApellidoRequired}"
-        formControlName="Apellido"></ion-input>
+        formControlName="lastName"></ion-input>
     </ion-item>
     @if (isApellidoRequired){
     <ion-note color="danger">* El campo apellidos es obligatorio.</ion-note>
@@ -77,8 +76,8 @@
     <ion-note color="danger">* Debe tener minimo 8 números.</ion-note>
     }
 
-    <ion-button mode="ios" expand="block" type="submit" color="secondary" style="margin-top: 20px" [disabled]="isFormInvalid"
-      (click)="singUp()">
+    <ion-button mode="ios" expand="block" type="submit" color="success" style="margin-top: 20px"
+      [disabled]="isFormInvalid" (click)="singUp()">
       Registrar
     </ion-button>
   </form>

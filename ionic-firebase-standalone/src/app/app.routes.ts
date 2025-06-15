@@ -37,7 +37,15 @@ export const routes: Routes = [
     loadChildren: () =>
       import('./shared/pages/tabs/app.routes').then((m) => m.routes),
     canActivate: [() => inject(AuthGuard).canActivate()],
+  },  {
+    path: 'galleries',
+    loadComponent: () => import('./galleries/pages/galleries/galleries.page').then( m => m.GalleriesPage)
   },
+  {
+    path: 'profile',
+    loadComponent: () => import('./profile/pages/profile/profile.page').then( m => m.ProfilePage)
+  },
+
 
 
 ];

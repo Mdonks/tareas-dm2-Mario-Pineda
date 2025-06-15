@@ -25,6 +25,7 @@ import { RegisterDto } from 'src/app/auth/dtos/register';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { Router } from '@angular/router';
 import { FirebaseAuthResponse } from 'src/app/auth/dtos/firebase-auth-response';
+import { UserService } from 'src/app/profile/services/user.service';
 addIcons({
   person: person,
   mail: mail,
@@ -68,14 +69,15 @@ export class RegisterPagePage {
     inject(LoadingController);
   private readonly _toastService: ToastService = inject(ToastService);
   loading: HTMLIonLoadingElement | null = null;
-
+  private readonly _userService: UserService = inject(UserService);
+  iconoPersona = person;
   constructor() {
     addIcons({ person, mail, key, idCard, call });
   }
 
   registerForm: FormGroup = this._formBuilder.group({
-    Nombre: ['', Validators.required],
-    Apellido: ['', Validators.required],
+    name: ['', Validators.required],
+    lastName: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required],
     dni: ['', [Validators.required, Validators.pattern(/^\d{13,}$/)]],
@@ -85,12 +87,12 @@ export class RegisterPagePage {
   spinner: boolean = false;
 
   get isNombreRequired(): boolean {
-    const control: AbstractControl | null = this.registerForm.get('Nombre');
+    const control: AbstractControl | null = this.registerForm.get('name');
     return control ? control.hasError('required') && control.touched : false;
   }
 
   get isApellidoRequired(): boolean {
-    const control: AbstractControl | null = this.registerForm.get('Apellido');
+    const control: AbstractControl | null = this.registerForm.get('lastName');
     return control ? control.hasError('required') && control.touched : false;
   }
 
@@ -127,7 +129,9 @@ export class RegisterPagePage {
   get isPhoneValid(): boolean {
     const control: AbstractControl | null = this.registerForm.get('phone');
     return control ? control.hasError('pattern') && control.touched : false;
-  }get isFormInvalid(): boolean {
+  }
+
+  get isFormInvalid(): boolean {
     return this.registerForm.invalid;
   }
 
@@ -149,19 +153,18 @@ export class RegisterPagePage {
       this.registerForm.markAllAsTouched();
       return;
     }
-
     this.showLoading();
-    //this.spinner = true;
     const register: RegisterDto = this.registerForm.value as RegisterDto;
     this._authService
       .createUserWithEmailAndPassword(register)
       .then(async (response: FirebaseAuthResponse) => {
         await this.closeLoading();
+        this._userService.createNewUser(response.data as RegisterDto);
         await this._toastService.createAndPresentToast(
           response.message ?? '¡Registro Exitoso!',
           false
         );
-        this._router.navigate(['/home']);
+        this._router.navigate(['tabs/home']);
       })
       .catch(async (error: string) => {
         await this.closeLoading();

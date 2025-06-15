@@ -1,6 +1,6 @@
 <ion-content [fullscreen]="true" class="ion-padding">
   <form [formGroup]="loginForm">
-    <div class="login-title">Iniciar Sesion</div>
+    <div style="color: green;" class="login-title">Iniciar Sesion</div>
     <ion-item class="no-border">
       <ion-label class="field-label" position="stacked" style="margin-bottom: 10px; font-size: 1.0rem;">Correo
         electrónico</ion-label>
@@ -27,25 +27,25 @@
     <ion-note color="danger">*La contraseña es requerida</ion-note>
     }
     <ion-text (click)="goForgotPassword()"
-      style="color: #003366; font-size: 0.8rem; cursor: pointer; display: block; margin-top: 10px; text-align: end; text-decoration: underline;">
+      style="color: #1a6410; font-size: 0.8rem; cursor: pointer; display: block; margin-top: 10px; text-align: end; text-decoration: underline;">
       ¿Olvidaste tu contraseña?
     </ion-text>
 
-    <ion-button mode="ios" expand="block" color="secondary" style="margin-top: 20px" [disabled]="isFormInvalid"
+    <ion-button mode="ios" expand="block" color="success" style="margin-top: 20px" [disabled]="isFormInvalid"
       (click)="login()">Iniciar sesión</ion-button>
-    <ion-text style="width: 100%; display: flex; justify-content: center;color: #003366;align-items: center; gap: 5px;">
+    <ion-text style="width: 100%; display: flex; justify-content: center;color: #1a6410;align-items: center; gap: 5px;">
       <div class="linea"></div>o
       <div class="linea"></div>
     </ion-text>
-    <ion-button mode="ios" fill="outline" expand="block" color="secondary" style="margin-top: 5px"
+    <ion-button mode="ios" fill="outline" expand="block" color="success" style="margin-top: 5px"
       (click)="loginAsGuest()">Iniciar como invitado</ion-button>
 
     <ion-item class="no-border">
       <div class="text-row">
-        <ion-text style="font-size: 0.8rem;color: #003366;">
+        <ion-text style="font-size: 0.8rem;color: #1a6410;">
           ¿No tienes una cuenta?
         </ion-text>
-        <ion-text color="primary"
+        <ion-text color="success"
           style="font-size: 0.8rem; cursor: pointer; font-weight: bold;text-decoration: underline;"
           (click)="goToRegister()">
           Regístrate ahora
