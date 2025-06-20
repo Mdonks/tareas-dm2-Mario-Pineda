@@ -82,6 +82,7 @@ export class RegisterPagePage {
     password: ['', Validators.required],
     dni: ['', [Validators.required, Validators.pattern(/^\d{13,}$/)]],
     phone: ['', [Validators.required, Validators.pattern(/^\d{8,}$/)]],
+    bDay: ['', Validators.required],
   });
 
   spinner: boolean = false;
@@ -133,6 +134,10 @@ export class RegisterPagePage {
 
   get isFormInvalid(): boolean {
     return this.registerForm.invalid;
+  }
+  get isFechaNacimientoRequired(): boolean {
+    const control: AbstractControl | null = this.registerForm.get('bDay');
+    return control ? control.hasError('required') && control.touched : false;
   }
 
   async closeLoading(): Promise<void> {

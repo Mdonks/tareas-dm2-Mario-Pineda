@@ -30,6 +30,8 @@ export class UserService {
       lastName: register.lastName,
       email: register.email,
       phone: register.phone || '',
+      bDay: register.bDay || '',
+      dni: register.dni || '',
     });
   }
 
@@ -53,6 +55,10 @@ export class UserService {
       email: register.email,
       phone: register.phone || '',
       photoURL: register.photoURL || '',
+      dni: register.dni || '',
+      bDay: register.bDay || '',
+      name: register.name || '',
+      lastName: register.lastName || '',
     });
   }
 }

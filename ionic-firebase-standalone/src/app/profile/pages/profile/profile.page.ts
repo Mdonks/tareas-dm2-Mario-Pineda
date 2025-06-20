@@ -1,4 +1,4 @@
-import { Component, inject, model, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { Router } from '@angular/router';
@@ -28,6 +28,8 @@ import {
   IonLabel,
   IonImg,
   IonSkeletonText,
+  IonInput,
+  IonIcon,
 } from '@ionic/angular/standalone';
 
 import { CloudinaryDtos } from 'src/app/shared/dtos/cloudinary_model';
@@ -40,6 +42,8 @@ import { CloudinaryService } from 'src/app/shared/services/cloudinary.service';
   styleUrls: ['./profile.page.scss'],
   standalone: true,
   imports: [
+    IonIcon,
+    IonInput,
     IonImg,
     IonLabel,
     IonItem,
@@ -72,7 +76,9 @@ export class ProfilePage implements OnInit {
   profileForm: FormGroup = this._formBuilder.group({
     uid: [''],
     photoURL: [''],
-    lastName: [''],
+    lastName: ['', [Validators.required]],
+    dni: ['', [Validators.pattern('^[0-9]{13}$')]],
+    bDay: ['', Validators.required],
     name: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
     phone: ['', [Validators.pattern('^[0-9]{8}$')]],
@@ -84,14 +90,24 @@ export class ProfilePage implements OnInit {
     return control ? control.touched && control.hasError('required') : false;
   }
 
-  get isEmailRequired(): boolean {
-    const control: AbstractControl | null = this.profileForm.get('email');
+  get isLastNameRequired(): boolean {
+    const control: AbstractControl | null = this.profileForm.get('lastName');
     return control ? control.touched && control.hasError('required') : false;
   }
 
-  get isEmailInvalid(): boolean {
-    const control: AbstractControl | null = this.profileForm.get('email');
-    return control ? control.touched && control.hasError('email') : false;
+  get isFechaNacimientoRequired(): boolean {
+    const control: AbstractControl | null = this.profileForm.get('birthdate');
+    return control ? control.hasError('required') && control.touched : false;
+  }
+
+  get isDniRequired(): boolean {
+    const control: AbstractControl | null = this.profileForm.get('dni');
+    return control ? control.touched && control.hasError('required') : false;
+  }
+
+  get isDnilInvalid(): boolean {
+    const control: AbstractControl | null = this.profileForm.get('dni');
+    return control ? control.touched && control.hasError('pattern') : false;
   }
 
   get isPhoneValid(): boolean {
@@ -116,17 +132,18 @@ export class ProfilePage implements OnInit {
     await this.loading.present();
   }
 
+  //metodo para guardar cambios
   async save(): Promise<void> {
     if (this.isFormInvalid) {
       this.profileForm.markAllAsTouched();
       return;
     }
     this.showLoading();
-
     const user: UserDto = this.profileForm.value as UserDto;
+    const timestamp = new Date().getTime();
     const model: CloudinaryDtos = {
       folder: 'users',
-      fileName: user.uid,
+      fileName: `${user.uid}-${timestamp}`,
       file: this.imageUrl,
     };
 
@@ -150,21 +167,28 @@ export class ProfilePage implements OnInit {
     });
   }
 
-  ngOnInit() {
+  ionViewWillEnter() {
+    this.loadUserData();
+  }
+
+  ngOnInit() {}
+
+  private loadUserData() {
     this._userService
       .getUserById()
       .then((user: UserDto | null) => {
-        this.loaded = false;
-        const full_name: string = `${user?.name} ${user?.lastName}`;
         this.imageUrl = user?.photoURL || this.imageUrl;
         this.profileForm.patchValue({
           uid: user?.uid || '',
-          name: full_name || '',
+          name: user?.name || ' ',
           lastName: user?.lastName || '',
           email: user?.email || '',
+          dni: user?.dni || '',
+          bDay: user?.bDay || '',
           phone: user?.phone || '',
           photoURL: user?.photoURL || '',
         });
+        this.loaded = false;
       })
       .catch(async (error: string) => {
         await this._toastService.createAndPresentToast(error, true);
@@ -178,7 +202,7 @@ export class ProfilePage implements OnInit {
       resultType: CameraResultType.Base64,
       saveToGallery: true,
       promptLabelHeader: 'Seleccionar una opcion',
-      promptLabelPicture: 'Tomar una foo',
+      promptLabelPicture: 'Tomar una foto',
       promptLabelPhoto: 'Elegir de galera',
     });
     if (!camera) return;
@@ -196,6 +220,7 @@ export class ProfilePage implements OnInit {
           'Sesión cerrada correctamente'
         );
         this._router.navigate(['./login-page']);
+        this.profileForm.reset();
       })
       .catch(async () => {
         console.error('Error al cerrar sesión:');

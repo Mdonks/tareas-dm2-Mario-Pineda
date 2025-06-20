@@ -7,4 +7,5 @@ export interface RegisterDto {
     dni: string;
     phone?: string;
     role: string;
+    bDay?: string;
   }

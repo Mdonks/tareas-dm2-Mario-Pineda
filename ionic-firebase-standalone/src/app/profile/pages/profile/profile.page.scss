@@ -44,3 +44,13 @@
     margin-bottom: 16px;
     width: 100%;
   }
+  input {
+    color-scheme: light;
+  }
+  
+  input[type="date"] {
+    width: 100%;
+    border: none;
+    margin-top: 11px;
+    margin-bottom: 13px;
+  }

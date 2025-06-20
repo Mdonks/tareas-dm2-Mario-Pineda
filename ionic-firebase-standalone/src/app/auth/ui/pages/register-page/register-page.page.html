@@ -75,6 +75,14 @@
     } @if(isPhoneValid){
     <ion-note color="danger">* Debe tener minimo 8 números.</ion-note>
     }
+    <ion-item class="no-border">
+      <ion-label class="field-label" position="stacked" style="margin-bottom: 10px; font-size: 1.0rem">Fecha de
+        nacimiento</ion-label>
+      <input type="date" formControlName="bDay" class="native-date-input" />
+    </ion-item>
+    @if(isFechaNacimientoRequired){
+    <ion-note color="danger">*La fecha de nacimiento es obligatoria.</ion-note>
+    }
 
     <ion-button mode="ios" expand="block" type="submit" color="success" style="margin-top: 20px"
       [disabled]="isFormInvalid" (click)="singUp()">

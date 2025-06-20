@@ -6,4 +6,6 @@ export interface UserDto {
     photoURL?: string;
     phone?: string;
     role: string;
+    bDay: string;
+    dni: string;
   }

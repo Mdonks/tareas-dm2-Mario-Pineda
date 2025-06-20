@@ -1,82 +1,134 @@
 <ion-header [translucent]="true">
-  <ion-toolbar class="verdecito">
-    <ion-title>Perfil</ion-title>
+  <ion-toolbar class= "verdecito" size="default">
+    <ion-title>Mi Perfil</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content [fullscreen]="true" class="ion-padding">
+
+<ion-content [fullscreen]="true">
+
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large" style="padding: 0px;">Perfil</ion-title>
+      <ion-title size="large">Mi Perfil</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <form [formGroup]="profileForm" (ngSubmit)="save()">
-    <ion-item class="no-border">
-      <div class="center-container">
-        <ion-img [src]="imageUrl" class="img_style_perfil" (click)="selecImage()"></ion-img>
-      </div>
-    </ion-item>
-    @if(loaded){
-    <ion-item class="no-border">
-      <ion-label position="stacked" class="label_style">Nombre</ion-label>
-      <div class="skeleton-styles">
-        <ion-skeleton-text [animated]="true" style="width: 60%"></ion-skeleton-text>
-      </div>
-    </ion-item>
-    <ion-item class="no-border">
-      <ion-label position="stacked" class="label_style">Correo electrónico</ion-label>
-      <div class="skeleton-styles">
-        <ion-skeleton-text [animated]="true" style="width: 70%"></ion-skeleton-text>
-      </div>
-    </ion-item>
-    <ion-item class="no-border" style="margin-bottom: 20px;">
-      <ion-label position="stacked" class="label_style">Teléfono</ion-label>
-      <div class="skeleton-styles">
-        <ion-skeleton-text [animated]="true" style="width: 60%"></ion-skeleton-text>
-      </div>
-    </ion-item>
-    } @else{
-    <ion-item class="no-border">
-      <ion-label position="stacked" class="label_style">Nombre</ion-label>
-      <ion-input type="text" name="name" formControlName="name" ngDefaultControl
-        [ngClass]="{ 'form-errorInput': isNameRequired }"></ion-input>
-      @if (isNameRequired) {
-      <ion-note color="danger" class="form-errorMessage">
-        El campo es requerido
-      </ion-note>
-      }
-    </ion-item>
-    <ion-item class="no-border">
-      <ion-label position="stacked" class="label_style">Correo electrónico</ion-label>
-      <ion-input type="text" name="email" formControlName="email" ngDefaultControl
-        [ngClass]="{ 'form-errorInput': isEmailRequired || isEmailInvalid }"></ion-input>
-      @if (isEmailRequired) {
-      <ion-note color="danger" class="form-errorMessage">
-        El campo es requerido
-      </ion-note>
-      } @if (isEmailInvalid) {
-      <ion-note color="danger" class="form-errorMessage">
-        El correo electrónico no es válido
-      </ion-note>
-      }
-    </ion-item>
-    <ion-item class="no-border" style="margin-bottom: 20px;">
-      <ion-label position="stacked" class="label_style">Teléfono</ion-label>
-      <ion-input type="number" name="phone" formControlName="phone" ngDefaultControl
-        [ngClass]="{ 'form-errorInput': isPhoneValid }"></ion-input>
-      @if (isPhoneValid) {
-      <ion-note color="danger" class="form-errorMessage">
-        El teléfono es inválido.
-      </ion-note>
-      }
-    </ion-item>
-    }
+  <div class="ion-padding">
+    <form [formGroup]="profileForm" (ngSubmit)="save()">
+      <ion-item class="no-border">
+        <div class="center-container">
+          <ion-img [src]="imageUrl" class="img_style_perfil" (click)="selecImage()"></ion-img>
+        </div>
+      </ion-item>
+      @if(loaded){
+      <ion-item class="no-border">
+        <div class="content-item">
+          <ion-label class="label_style">Nombre completo</ion-label>
+          <div class="skeleton-styles">
+            <ion-skeleton-text [animated]="true" style="width: 60%"></ion-skeleton-text>
+          </div>
+        </div>
+      </ion-item>
+      <ion-item class="no-border">
+        <div class="content-item">
+          <ion-label class="label_style">Numero de identidad</ion-label>
+          <div class="skeleton-styles">
+            <ion-skeleton-text [animated]="true" style="width: 70%"></ion-skeleton-text>
+          </div>
+        </div>
+      </ion-item>
+      <ion-item class="no-border">
+        <div class="content-item">
+          <ion-label class="label_style">Teléfono</ion-label>
+          <div class="skeleton-styles">
+            <ion-skeleton-text [animated]="true" style="width: 60%"></ion-skeleton-text>
+          </div>
+        </div>
+      </ion-item>
+      <ion-item class="no-border" style="margin-bottom: 20px;">
+        <div class="content-item">
+          <ion-label class="label_style">Fecha de nacimiento</ion-label>
+          <div class="skeleton-styles">
+            <ion-skeleton-text [animated]="true" style="width: 60%"></ion-skeleton-text>
+          </div>
+        </div>
+      </ion-item>
+      } @else{
+      <ion-item class="no-border">
+        <div class="content-item">
+          <ion-label class="label_style">Nombre</ion-label>
+          <ion-input type="text" name="name" formControlName="name" ngDefaultControl
+            [ngClass]="{ 'form-errorInput': isNameRequired }"></ion-input>
+          @if (isNameRequired) {
+          <ion-note color="danger" class="form-errorMessage">
+            El campo es requerido
+          </ion-note>
+          }
+        </div>
+      </ion-item>
 
-    <ion-button color= "success" expand="block" mode="ios" type="submit"
-      [ariaDisabled]="isFormInvalid || spinner">
-      <ion-spinner *ngIf="spinner"></ion-spinner>Guardar
-    </ion-button>
-  </form>
-  <ion-button color= "success" fill="outline" mode="ios" expand="block" (click)="logout()">Cerrar sesion</ion-button>
+      <ion-item class="no-border">
+        <div class="content-item">
+          <ion-label class="label_style">Apellido</ion-label>
+          <ion-input type="text" name="lastName" formControlName="lastName" ngDefaultControl
+            [ngClass]="{ 'form-errorInput': isNameRequired }"></ion-input>
+          @if (isLastNameRequired) {
+          <ion-note color="danger" class="form-errorMessage">
+            El campo es requerido
+          </ion-note>
+          }
+        </div>
+      </ion-item>
+      <ion-item class="no-border">
+        <div class="content-item">
+          <ion-label position="" class="label_style">Numero de Identidad</ion-label>
+          <ion-input type="number" name="dni" formControlName="dni" ngDefaultControl
+            [ngClass]="{ 'form-errorInput': isDniRequired || isDnilInvalid }"></ion-input>
+          @if (isDniRequired) {
+          <ion-note color="danger" class="form-errorMessage">
+            El campo es requerido
+          </ion-note>
+          } @if (isDnilInvalid) {
+          <ion-note color="danger" class="form-errorMessage">
+            El numero de identidad es requerido
+          </ion-note>
+          }
+        </div>
+      </ion-item>
+      <ion-item class="no-border">
+        <div class="content-item">
+          <ion-label position="" class="label_style">Teléfono</ion-label>
+          <ion-input type="number" name="phone" formControlName="phone" ngDefaultControl
+            [ngClass]="{ 'form-errorInput': isPhoneValid }"></ion-input>
+          @if (isPhoneValid) {
+          <ion-note color="danger" class="form-errorMessage">
+            El teléfono es inválido.
+          </ion-note>
+          }
+        </div>
+      </ion-item>
+
+      <ion-item class="no-border" style="margin-bottom: 20px;">
+        <div class="content-item">
+          <ion-label position="" class="label_style">Fecha de nacimiento</ion-label>
+          <input type="date" name="bDay" formControlName="bDay" ngDefaultControl
+            [ngClass]="{ 'form-errorInput': isPhoneValid }" />
+          @if (isFechaNacimientoRequired) {
+          <ion-note color="danger" class="form-errorMessage">
+            La fecha de nacimiento no es valida
+          </ion-note>
+          }
+        </div>
+      </ion-item>
+      }
+
+      <ion-button  color="success"expand="block" type="submit"
+        [ariaDisabled]="isFormInvalid || spinner">
+        <ion-spinner  *ngIf="spinner"></ion-spinner>Guardar
+      </ion-button>
+    </form>
+    <ion-button color="success" fill="outline" expand="block" (click)="logout()"><ion-icon name="log-out-outline"></ion-icon>Cerrar
+      sesion</ion-button>
+
+  </div>
 
 </ion-content>
