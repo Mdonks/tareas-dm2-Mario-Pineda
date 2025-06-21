@@ -1,0 +1,28 @@
+.verdecito {
+  --background: #2ecc71;
+  color: white;
+}
+
+.gallery-card {
+  background-color: #2ecc71; 
+  color: white;
+}
+
+.card-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.gallery-img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.gallery-text h2, .gallery-text h3 {
+  margin: 0;
+  color: white;
+  text-align: left;
+}

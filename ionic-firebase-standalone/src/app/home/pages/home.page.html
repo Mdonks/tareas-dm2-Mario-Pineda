@@ -1,0 +1,26 @@
+<ion-header [translucent]="true">
+  <ion-toolbar class="verdecito">
+    <ion-title>Home</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Home</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-list>
+    <ion-card *ngFor="let gallery of photos" class="gallery-card">
+      <ion-card-content class="card-content">
+        <img [src]="gallery.image" class="gallery-img" />
+        <div class="gallery-text">
+          <h2>{{ gallery.name }}</h2>
+          <h3>{{ gallery.species }}</h3>
+          <h3>{{ gallery.status }}</h3>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+</ion-content>

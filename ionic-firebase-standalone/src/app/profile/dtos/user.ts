@@ -8,4 +8,5 @@ export interface UserDto {
     role: string;
     bDay: string;
     dni: string;
+    fcmToken?: string;
   }

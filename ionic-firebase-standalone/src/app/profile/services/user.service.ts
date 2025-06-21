@@ -59,6 +59,7 @@ export class UserService {
       bDay: register.bDay || '',
       name: register.name || '',
       lastName: register.lastName || '',
+      fcmToken: register.fcmToken || '',
     });
   }
 }
